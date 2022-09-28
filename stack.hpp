@@ -13,21 +13,28 @@ enum stackError
     E_OK,       // No error occured
     E_ALLOC,    // Memory allocation error
     E_EMPTY,
+    E_STACK_CORRUPTED,
+    E_BAD_POINTER,
 };
 
 typedef enum stackError stackError;
 
 typedef int elem_t;
 
+typedef unsigned int canary_t;
+
 /**
  * @brief
  */
 struct stack_s
 {
+    canary_t canaryLeft;
+
     elem_t  *elems;
     size_t  sz;
     size_t  capacity;
 
+    canary_t canaryRight;
 };
 
 typedef struct stack_s stack_s;
