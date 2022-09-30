@@ -10,11 +10,12 @@
  */
 enum stackError
 {
-    E_OK,       // No error occured
-    E_ALLOC,    // Memory allocation error
-    E_EMPTY,
-    E_STACK_CORRUPTED,
-    E_BAD_POINTER,
+    E_OK,               // No error occured
+    E_ALLOC,            // Memory allocation error
+    E_EMPTY,            // Dtack is empty
+    E_STACK_CORRUPTED,  // Security breach occured
+    E_BAD_POINTER,      // NULL pointer was passed to stack method
+    E_NOT_INITIALIZED,  // Stack is not initialized
 };
 
 typedef enum stackError stackError;
@@ -30,13 +31,15 @@ typedef unsigned int canary_t;
 struct stack_s
 {
     canary_t canaryLeft;
+    FILE *log;
 
     elem_t  *elems;
     size_t  sz;
     size_t  capacity;
 
+    bool initialized;
+
     hash_t  stackHash;
-    hash_t  dataHash;
 
     canary_t canaryRight;
 };
@@ -44,7 +47,7 @@ struct stack_s
 typedef struct stack_s stack_s;
 
 
-stackError stackInit(stack_s *stack, size_t capacity);
+stackError stackInit(stack_s *stack, size_t capacity, FILE *log);
 
 stackError stackFree(stack_s *stack);
 
