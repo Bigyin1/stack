@@ -18,53 +18,68 @@ enum stackError
     E_NOT_INITIALIZED,  // Stack is not initialized
 };
 
-typedef enum stackError stackError;
-
-typedef int elem_t;
-typedef unsigned long int hash_t;
-
-typedef unsigned int canary_t;
-
-/**
- * @brief
- */
-struct stack_s
-{
-    canary_t canaryLeft;
-    FILE *log;
-
-    elem_t  *elems;
-    size_t  sz;
-    size_t  capacity;
-
-    bool initialized;
-
-    hash_t  stackHash;
-
-    canary_t canaryRight;
-};
+/// @brief Main Stack structure
+struct stack_s;
 
 typedef struct stack_s stack_s;
 
+typedef long long unsigned int elem_t;
 
-stackError stackInit(stack_s *stack, size_t capacity, FILE *log);
+/// @brief Stack initialization must be performed before usage.
+/// @param stack pointer to pointer to stack structure.
+/// @param capacity // Prefferred capacity. Min capacity is 8 elements.
+/// @param log // file to log in stack dump
+/// @return
+stackError stackInit(stack_s **stack, size_t capacity, FILE *log);
 
+/// @brief Frees stack buffer and stack structure
+/// @param stack
+/// @return
 stackError stackFree(stack_s *stack);
 
+/// @brief Increases stack's capacity by two
+/// @param stack
+/// @return
 stackError stackResizeUp(stack_s *stack);
 
+/// @brief Decreases stack's capacity by two
+/// @param stack
+/// @return
 stackError stackResizeDown(stack_s *stack);
 
+/// @brief
+/// @param stack
+/// @param el
+/// @return
 stackError stackPush(stack_s *stack, const elem_t el);
 
+/// @brief
+/// @param stack
+/// @param el
+/// @return
 stackError stackPop(stack_s *stack, elem_t *el);
 
+/// @brief
+/// @param stack
+/// @param el
+/// @return
 stackError stackPeek(const stack_s *stack, elem_t *el);
 
+/// @brief
+/// @param stack
+/// @param out
+/// @return
 stackError stackDump(const stack_s *stack, FILE *out);
 
+/// @brief
+/// @param stack
+/// @return
+size_t stackGetSize(const stack_s *stack);
 
-
+/// @brief
+/// @param stack
+/// @return
+size_t stackGetCapacity(const stack_s *stack);
 
 
 #endif

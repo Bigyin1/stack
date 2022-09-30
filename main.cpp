@@ -4,7 +4,7 @@
 
 int main() {
 
-    stack_s st = {0};
+    stack_s *st = NULL;
 
     stackError err = E_OK;
     err = stackInit(&st, 0, NULL);
@@ -15,16 +15,28 @@ int main() {
 
     for (size_t i = 0; i < 33; i++)
     {
-        err = stackPush(&st, 1);
+        err = stackPush(st, i);
         if (err != E_OK){
             printf("\nerror %d\n", err);
-            stackFree(&st);
+            stackFree(st);
             return 0;
         }
     }
 
-    stackDump(&st, NULL);
+    for (size_t i = 0; i < 33; i++)
+    {
+        elem_t el = 0;
+        err = stackPop(st, &el);
+        if (err != E_OK){
+            printf("\nerror %d\n", err);
+            stackFree(st);
+            return 0;
+        }
+        printf("%d\n", el);
+    }
 
-    stackFree(&st);
+    stackDump(st, NULL);
+
+    stackFree(st);
 
 }

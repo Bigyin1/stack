@@ -5,7 +5,8 @@ EXECUTABLE = bin
 
 
 SRCS = 	main.cpp \
-		stack.cpp
+		stack.cpp \
+		security/security.cpp
 
 
 
