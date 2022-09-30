@@ -20,6 +20,7 @@ enum stackError
 typedef enum stackError stackError;
 
 typedef int elem_t;
+typedef unsigned long int hash_t;
 
 typedef unsigned int canary_t;
 
@@ -33,6 +34,9 @@ struct stack_s
     elem_t  *elems;
     size_t  sz;
     size_t  capacity;
+
+    hash_t  stackHash;
+    hash_t  dataHash;
 
     canary_t canaryRight;
 };
