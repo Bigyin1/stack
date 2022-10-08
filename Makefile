@@ -4,8 +4,7 @@ DOXYGEN = doxygen
 EXECUTABLE = bin
 
 
-SRCS = 	main.cpp \
-		stack.cpp \
+SRCS = stack.cpp \
 		security/security.cpp
 
 
@@ -49,6 +48,11 @@ OBJ_DIRS := $(dir $(OBJS))
 $(shell mkdir -p $(OBJ_DIRS))
 
 
+LIB = libstack
+LIB_DIR := lib
+$(shell mkdir -p $(LIB_DIR))
+
+
 .PHONY: all
 all: $(BUILD_DIR)/$(EXECUTABLE) $(DOCS_DIR)
 
@@ -58,6 +62,13 @@ test: $(BUILD_DIR)/$(EXECUTABLE)
 
 .PHONY: bin
 bin: $(BUILD_DIR)/$(EXECUTABLE)
+
+
+.PHONY: lib
+lib: $(LIB_DIR)/$(LIB)
+
+$(LIB_DIR)/$(LIB): $(OBJS)
+	@ar rcs $@ $^
 
 
 $(BUILD_DIR)/$(EXECUTABLE): $(OBJS)

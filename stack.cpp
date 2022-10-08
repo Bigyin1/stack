@@ -2,6 +2,7 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <cstdint>
 #include "inc/stack.hpp"
 
 
