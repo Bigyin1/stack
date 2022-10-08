@@ -23,7 +23,7 @@ struct stack_s;
 
 typedef struct stack_s stack_s;
 
-typedef long long unsigned int elem_t;
+typedef char elem_t;
 
 /// @brief Stack initialization must be performed before usage.
 /// @param stack pointer to pointer to stack structure.
