@@ -55,19 +55,17 @@ hash_t calcStackHash(const stack_s *stack);
 #define CHECK_CANARY(stack)              \
 {                                        \
     stackError err = verifyCanary(stack);\
-    if (err != E_OK){                   \
-        stackDump(stack, NULL);         \
-        return err;                     \
+    if (err != E_OK){                    \
+        return err;                      \
     }                                    \
 }
 
-#define CHECK_HASH(stack)              \
-{                                      \
-    stackError err = verifyHash(stack);\
+#define CHECK_HASH(stack)               \
+{                                       \
+    stackError err = verifyHash(stack); \
    if (err != E_OK){                    \
-        stackDump(stack, NULL);        \
         return err;                     \
-    }                                    \
+    }                                   \
 }
 
 #endif

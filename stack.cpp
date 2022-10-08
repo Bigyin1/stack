@@ -22,14 +22,6 @@ static stackError stackRealloc(stack_s *stack, size_t newCapacity){
 
     stack->elems = (elem_t *)(buf + sizeof(canary_t));
 
-    if (newCapacity > stack->capacity){
-        for (size_t i = stack->capacity; i < newCapacity; i++)
-            stack->elems[i] = STACK_POISON;
-    } else {
-        for (size_t i = newCapacity; i < stack->capacity; i++)
-            stack->elems[i] = STACK_POISON;
-    }
-
     stack->capacity = newCapacity;
     setDataCanary(buf, stack->capacity);
 
@@ -70,9 +62,6 @@ stackError stackInit(stack_s **st, size_t capacity, FILE *log){
 
     stack->log = log;
     stack->initialized = true;
-
-    for (size_t i = 0; i < stack->capacity; i++)
-        stack->elems[i] = STACK_POISON;
 
     stack->stackHash = calcStackHash(stack);
 
@@ -156,6 +145,7 @@ stackError stackPop(stack_s *stack, elem_t *el){
 
 
     *el = stack->elems[--stack->sz];
+    stack->elems[stack->sz] = STACK_POISON;
 
     stack->stackHash = calcStackHash(stack);
 
