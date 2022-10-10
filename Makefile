@@ -7,6 +7,10 @@ EXECUTABLE = bin
 SRCS = stack.cpp \
 		security/security.cpp \
 
+ifeq ($(MAKECMDGOALS), test)
+	SRCS += main.cpp
+endif
+
 
 INCLUDES =
 
@@ -42,6 +46,7 @@ DEPFILES := $(SRCS:%.cpp=$(DEP_DIR)/%.d)
 DEP_DIRS := $(dir $(DEPFILES))
 $(shell mkdir -p $(DEP_DIRS))
 
+
 OBJS := $(SRCS:%.cpp=$(BUILD_DIR)/%.o)
 OBJ_DIRS := $(dir $(OBJS))
 $(shell mkdir -p $(OBJ_DIRS))
@@ -52,19 +57,13 @@ LIB_DIR := lib
 $(shell mkdir -p $(LIB_DIR))
 
 
-.PHONY: all
-all: $(BUILD_DIR)/$(EXECUTABLE) $(DOCS_DIR)
-
 .PHONY: test
 test: $(BUILD_DIR)/$(EXECUTABLE)
-	$(BUILD_DIR)/$(EXECUTABLE) ./testdata/hamlet/textInitial ./testOut.txt
-
-.PHONY: bin
-bin: $(BUILD_DIR)/$(EXECUTABLE)
-
+	$(BUILD_DIR)/$(EXECUTABLE)
 
 .PHONY: lib
 lib: $(LIB_DIR)/$(LIB)
+
 
 $(LIB_DIR)/$(LIB): $(OBJS)
 	@ar rcs $@ $^
@@ -80,7 +79,6 @@ $(BUILD_DIR)/%.o: %.cpp $(DEP_DIR)/%.d
 $(DEPFILES):
 
 include $(wildcard $(DEPFILES))
-
 
 
 
