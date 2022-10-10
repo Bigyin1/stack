@@ -7,7 +7,7 @@ const canary_t stackCanaryRight =      0xBCBAAAC;
 const canary_t stackDataCanaryLeft =   0xCAABDFF;
 const canary_t stackDataCanaryRight =  0xEEEBDAA;
 
-const elem_t STACK_POISON = (elem_t)0xEDEEDEF0;
+const elem_t STACK_POISON = (elem_t)0xEDEEDEF0FF;
 
 hash_t calcHash(const char *data, size_t sz){
     assert(data != NULL);

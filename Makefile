@@ -47,7 +47,7 @@ OBJ_DIRS := $(dir $(OBJS))
 $(shell mkdir -p $(OBJ_DIRS))
 
 
-LIB = libstack
+LIB = libstack.a
 LIB_DIR := lib
 $(shell mkdir -p $(LIB_DIR))
 
